@@ -1,4 +1,4 @@
-# todoapptask3
+# Simple Todo App in VueJS
 
 ## Project setup
 ```
