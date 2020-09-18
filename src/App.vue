@@ -8,6 +8,7 @@
         v-on:del-todo="deleteTodo"
         v-on:change-edit-status="changeEditStatus"
         v-on:edit-todo="editTodo"
+        v-on:mark-complete="markComplete"
       />
     </div>
   </div>
@@ -38,8 +39,9 @@ export default {
     changeEditStatus: function (id) {
       this.todos.forEach((todo) => {
         if (todo.id === id) {
-          todo.edit = true;
+          todo.edit = !todo.edit;
         }
+        localStorage.setItem("Todos", JSON.stringify(this.todos));
       });
     },
     editTodo: function (id, title, completed, edit) {
@@ -69,6 +71,14 @@ export default {
         localStorage.setItem("Todos", JSON.stringify(this.todos));
       }
     },
+    markComplete: function(complete,id){
+      this.todos.forEach((todo) => {
+        if (todo.id == id) {
+          todo.completed = complete;
+        }
+      });
+       localStorage.setItem("Todos", JSON.stringify(this.todos));
+    }
   },
 };
 </script>

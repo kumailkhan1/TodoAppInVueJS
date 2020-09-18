@@ -25,7 +25,12 @@ export default {
         completed: false,
         edit: false,
       };
+      if(this.title==""){
+          alert("Please enter a valid To-do Task!");
+          return;
+      }
       this.$emit("add-todo", newTodo);
+      this.title='';
     },
   },
 };

@@ -3,11 +3,11 @@
     <p>
       <span v-show="todo.edit">
 
-          <input v-model="title" name="title" type="text" placeholder="Edit this todo..." />
+          <input v-model="title" type="text" />
           <input type="submit" class="done" value="Done!" @click="editTodo" />
       </span>
       <span v-show="!todo.edit">
-        <input type="checkbox" @change="markAsComplete" />
+        <input type="checkbox" :checked="todo.completed" @change="markAsComplete" />
         {{todo.title}}
       </span>
       <button class="del" @click="$emit('del-todo',todo.id)">Delete</button>
@@ -22,13 +22,15 @@ export default {
   name: "TodoItem",
   data() {
     return {
-      title: "",
+      title: this.todo.title
     };
   },
   props: ["todo"],
   methods: {
     markAsComplete: function () {
+        
       this.todo.completed = !this.todo.completed;
+      this.$emit("mark-complete",this.todo.completed,this.todo.id);
     },
     editTodo: function(){
         let newEditedTodo = {
@@ -43,8 +45,9 @@ export default {
         this.$emit('edit-todo',this.todo.id,this.todo.title,this.todo.completed,this.todo.edit);
         console.log(newEditedTodo)
         this.title="";
-    }
+    },
   },
+  
 };
 </script>
 
